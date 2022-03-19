@@ -1,18 +1,125 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div id="hero" class="section">
+      <div class="imagePlaceholder"></div>
+      <div class="heroBtns">
+        <button>Tops</button><button>Dresses</button><button>Pants</button><button>Scarves</button>
+      </div>
+    </div>
+    <div id="newStock" class="section">
+      <h1>New In Stock</h1>
+      <div class="newProducts">
+        <div class="newStockimg1" style="background-image: url('https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/D7/F0/c52394d3-2eda-4e09-a045-7e509a224ed6.jpg');">
+          <div class="hoverInfo"><h1>hover info</h1></div>
+        </div>
+        <div class="newStockimg2">
+          <div class="hoverInfo"><h1>hover info</h1></div>
+        </div>
+        <div class="newStockimg3">
+          <div class="hoverInfo"><h1>hover info</h1></div>
+        </div>
+        <div class="newStockimg4">
+          <div class="hoverInfo"><h1>hover info</h1></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section" id="onSale">
+
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
-  }
+  components: {}
 }
 </script>
+
+<style>
+  .section{
+    padding: 100px 0;
+    border-bottom: 0.3px solid rgb(46, 43, 43);
+  }
+  .imagePlaceholder{
+    background: grey;
+    height: 500px;
+    width: 100%;
+  }
+  .home{
+    margin: 0 10%;
+  }
+  #hero{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .heroBtns{
+    display: flex;
+    width: 100%;
+  }
+
+  .heroBtns button{
+    width: 25%;
+    height: 80px;
+    background: aliceblue;
+    transition: 0.1s;
+  }
+
+  .heroBtns button:hover{
+    background: black;
+    color: white;
+    transition: 0.3s;
+  }
+  
+  .newProducts{
+    margin-top: 100px;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, 5fr);
+    grid-template-rows: repeat(2, 5fr);
+    width: 100%;
+    height: 400px;
+  }
+
+  .newProducts div{
+    background-size: cover;
+  }
+
+  .hoverInfo{
+    color: aliceblue;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: 0.3s;
+  }
+
+  .hoverInfo:hover{
+    opacity: 1;
+    transition: 0.3s;
+  }
+
+  .newStockimg1{
+    grid-column: 1/span 1;
+    grid-row: 1/span 2;
+    background: yellowgreen;
+  }
+  .newStockimg4{
+    grid-column: 3/span 1;
+    grid-row: 1/span 2;
+    background: yellowgreen;
+  }
+  .newStockimg2{
+    grid-column: 2/span 1;
+    grid-row: 1/span 1;
+    background: blueviolet;
+  }
+  .newStockimg3{
+    grid-column: 2/span 1;
+    grid-row: 2/span 1;
+    background: blue;
+  }
+</style>
