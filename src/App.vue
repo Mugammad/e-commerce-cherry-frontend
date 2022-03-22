@@ -4,6 +4,7 @@
   <ModalLogin v-if="showLoginModal" @toggleLogin="toggleLogin"/>
   <ModalSignUp v-if="showSignUpModal" @toggleLogin="toggleSignUp"/>
   <router-view @toggleLogin="toggleLogin"/>
+  <Footer/>
 </template>
 
 <script>
@@ -13,12 +14,14 @@ import Navbar from "./components/Navbar.vue"
 import Navbar2 from './components/Navbar2.vue'
 import ModalLogin from './components/ModalLogin.vue'
 import ModalSignUp from './components/ModalSignUp.vue'
+import Footer from './components/Footer.vue'
 export default {
   components: {
     Navbar,
     Navbar2,
     ModalLogin,
-    ModalSignUp
+    ModalSignUp,
+    Footer
   },
   data() {
     return {
@@ -54,15 +57,20 @@ export default {
 </script>
 
 <style>
+:root{
+  --pink: #FFE8D1;
+  --brown: #826251;
+  --black: black;
+}
 *{
   padding: 0;
   margin: 0
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: var(--black);
 }
 </style>

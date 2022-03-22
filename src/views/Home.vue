@@ -6,8 +6,10 @@
         <button>Tops</button><button>Dresses</button><button>Pants</button><button>Scarves</button>
       </div>
     </div>
+    <div class="sectionLabel">
+      <h1>NEW IN STOCK</h1>
+    </div>
     <div id="newStock" class="section">
-      <h1>New In Stock</h1>
       <div class="newProducts">
         <div class="newStockimg1" style="background-image: url('https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/D7/F0/c52394d3-2eda-4e09-a045-7e509a224ed6.jpg');">
           <div class="hoverInfo"><h1>hover info</h1></div>
@@ -23,9 +25,18 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="section" id="onSale">
-
+    <div class="sectionLabel">
+      <h1>ON SALE</h1>
+    </div>
+    <div class="section" id="onSale">
+      <div class="saleItems">
+        <div class="saleItem"></div>
+        <div class="saleItem"></div>
+        <div class="saleItem"></div>
+        <div class="saleItem"></div>
+      </div>
+      <a href="">view more</a>
+    </div>
   </div>
 </template>
 
@@ -38,13 +49,39 @@ export default {
 </script>
 
 <style>
+  .sectionLabel{
+    position: absolute;
+    width: 80%;
+    margin-top: -18.5px;
+  }
+  .sectionLabel h1{
+    width: fit-content;
+    margin: 0 auto;
+    padding: 0 7px;
+    background: white;
+  }
+  #onSale{
+    border: none;
+  }
+  .saleItems{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.333333333%;
+    justify-content: center;
+    width: 100%;
+  }
+  .saleItem{
+    width: 24%;
+    height: 400px;
+    background: grey;
+  }
   .section{
     padding: 100px 0;
     border-bottom: 0.3px solid rgb(46, 43, 43);
   }
   .imagePlaceholder{
     background: grey;
-    height: 500px;
+    height: 400px;
     width: 100%;
   }
   .home{
@@ -62,7 +99,7 @@ export default {
   .heroBtns button{
     width: 25%;
     height: 80px;
-    background: aliceblue;
+    background: var(--pink);
     transition: 0.1s;
   }
 
@@ -73,7 +110,6 @@ export default {
   }
   
   .newProducts{
-    margin-top: 100px;
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(3, 5fr);

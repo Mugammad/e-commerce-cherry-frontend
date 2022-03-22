@@ -5,7 +5,10 @@
     </div>
     <div class="navMiddle">
         <ul>
-            <li><router-link class="navLink category" to="/products">PRODUCTS</router-link></li>
+            <li>
+                <router-link class="navLink category" to="/products">PRODUCTS</router-link>
+                <div class="borderLeft"></div>
+            </li>
         </ul>
     </div>
     <div class="navEnd">
@@ -38,7 +41,6 @@ export default {
         align-items: center;
         padding: 0 10% ;
         height: 64px;
-        background: yellowgreen;
     }
     .navMiddle{
         height: 100%;

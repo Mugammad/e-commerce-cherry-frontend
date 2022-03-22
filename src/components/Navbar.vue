@@ -1,7 +1,7 @@
 <template>
   <div id="nav">
     <div class="navStart">
-        <router-link class="navLink" to="/">Shop</router-link>
+      <router-link class="navLink" to="/">Shop</router-link>
     </div>
     <div class="navEnd">
         <div>
@@ -50,13 +50,12 @@ export default {
 </script>
 
 <style>
-    .navEnd{
+    .navEnd, .navStart{
         display: flex;
         flex-wrap: wrap;
         height: 100%;
     }
-
-    .navEnd *{
+    .navEnd *, .navStart *{
         display: flex;
         align-items: center;
     }
@@ -79,21 +78,25 @@ export default {
 
     .navLink, button{
         padding: 0 10px;
+        height: 100%;
+        flex-shrink: 0;
     }
 
     #nav {
       padding: 0 10%;
+      background: var(--pink);
     }
 
     #nav a, #nav2 a {
       font-weight: bold;
       color: #2c3e50;
-      width: 100%;
       text-decoration: none;
     }
 
     #nav a.router-link-exact-active, #nav2 a.router-link-exact-active {
       color: seagreen;
+      background: white;
+      
     }
     .dropdown{
         height: 100%;
