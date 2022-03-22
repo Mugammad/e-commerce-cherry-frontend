@@ -1,5 +1,7 @@
 <template>
-  <h1>Products Page</h1>
+  <div class="mainSection">
+    <h1>Products Page</h1>
+  </div>
 </template>
 
 <script>

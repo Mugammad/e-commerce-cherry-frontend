@@ -1,5 +1,7 @@
 <template>
-  <h1>this is cart</h1>
+  <div class="mainSection">
+    <h1>this is cart</h1>
+  </div>
 </template>
 
 <script>

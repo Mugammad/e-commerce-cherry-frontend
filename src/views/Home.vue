@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div id="home" class="mainSection">
     <div id="hero" class="section">
       <div class="imagePlaceholder"></div>
       <div class="heroBtns">
@@ -84,7 +84,7 @@ export default {
     height: 400px;
     width: 100%;
   }
-  .home{
+  #home{
     margin: 0 10%;
   }
   #hero{

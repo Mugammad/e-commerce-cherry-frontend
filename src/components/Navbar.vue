@@ -1,7 +1,8 @@
 <template>
   <div id="nav">
     <div class="navStart">
-      <router-link class="navLink" to="/">Shop</router-link>
+      <router-link v-if="!this.isAdmin" class="navLink" to="/">Shop</router-link>
+      <router-link v-if="this.isAdmin" class="navLink" to="/admin">Admin Board</router-link>
     </div>
     <div class="navEnd">
         <div>
@@ -33,6 +34,12 @@ export default {
     currentUser() {
       return this.$store.state.auth.user;
     },
+    isAdmin() {
+        if(this.currentUser){
+            return this.currentUser.roles.includes('ROLE_ADMIN')
+        }
+    }
+    
   },
   methods: {
     logOut() {
@@ -45,7 +52,7 @@ export default {
     toggleSignUp(){
         this.$emit('toggleSignUp')
     }
-  }
+  },
 }
 </script>
 

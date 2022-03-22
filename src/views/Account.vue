@@ -1,5 +1,7 @@
 <template>
-  <h1>Account Page</h1>
+  <div class="mainSection">
+    <h1>Account Page</h1>
+  </div>
 </template>
 
 <script>

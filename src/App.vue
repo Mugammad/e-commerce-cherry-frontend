@@ -3,7 +3,8 @@
   <Navbar2/>
   <ModalLogin v-if="showLoginModal" @toggleLogin="toggleLogin"/>
   <ModalSignUp v-if="showSignUpModal" @toggleLogin="toggleSignUp"/>
-  <router-view @toggleLogin="toggleLogin"/>
+  <ModalAddProduct v-if="showAddProductModal" @toggleAddProduct="toggleAddProduct"/>
+  <router-view @toggleLogin="toggleLogin" @toggleAddProduct="toggleAddProduct"/>
   <Footer/>
 </template>
 
@@ -14,6 +15,7 @@ import Navbar from "./components/Navbar.vue"
 import Navbar2 from './components/Navbar2.vue'
 import ModalLogin from './components/ModalLogin.vue'
 import ModalSignUp from './components/ModalSignUp.vue'
+import ModalAddProduct from './components/ModalAddProduct.vue'
 import Footer from './components/Footer.vue'
 export default {
   components: {
@@ -21,13 +23,15 @@ export default {
     Navbar2,
     ModalLogin,
     ModalSignUp,
+    ModalAddProduct,
     Footer
   },
   data() {
     return {
       userInfo: "",
       showLoginModal: false,
-      showSignUpModal: false
+      showSignUpModal: false,
+      showAddProductModal: false
     }
   },
   methods: {
@@ -36,23 +40,11 @@ export default {
     },
     toggleSignUp(){
       this.showSignUpModal = !this.showSignUpModal
+    },
+    toggleAddProduct(){
+      this.showAddProductModal = !this.showAddProductModal
     }
   },
-  // created() {
-  //   UserService.getUserInfo().then(
-  //     (response) => {
-  //       this.userInfo = response.data;
-  //     },
-  //     (error) => {
-  //       this.userInfo =
-  //         (error.response &&
-  //           error.response.data &&
-  //           error.response.data.message) ||
-  //         error.message ||
-  //         error.toString();
-  //     }
-  //   );
-  // },
 }
 </script>
 
@@ -65,6 +57,9 @@ export default {
 *{
   padding: 0;
   margin: 0
+}
+.mainSection{
+  min-height: 100vh;
 }
 #app {
   font-family: 'Lato', sans-serif;

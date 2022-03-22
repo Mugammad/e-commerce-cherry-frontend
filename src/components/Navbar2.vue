@@ -1,5 +1,5 @@
 <template>
-  <div id="nav2">
+  <div v-if="!this.isAdmin" id="nav2">
     <div class="navStart">
         <h1>Store LOGO</h1>
     </div>
@@ -18,7 +18,16 @@
 
 <script>
 export default {
-
+    computed: {
+        currentUser() {
+          return this.$store.state.auth.user;
+        },
+        isAdmin() {
+            if(this.currentUser){
+                return this.currentUser.roles.includes('ROLE_ADMIN')
+            }
+        }
+    },
 }
 </script>
 
