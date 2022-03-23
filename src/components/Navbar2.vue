@@ -6,8 +6,16 @@
     <div class="navMiddle">
         <ul>
             <li>
-                <router-link class="navLink category filterLink" to="/products"><span class="borderLinkTop"></span>PRODUCTS<span class="borderLink"></span></router-link>
-                <div class="borderLeft"></div>
+                <router-link class="navLink category filterLink" to="/products"><span class="borderLinkTop"></span>TOPS<span class="borderLink"></span></router-link>
+            </li>
+            <li>
+                <router-link class="navLink category filterLink" to="/bottoms"><span class="borderLinkTop"></span>BOTTOMS<span class="borderLink"></span></router-link>
+            </li>
+            <li>
+                <router-link class="navLink category filterLink" to="/dresses"><span class="borderLinkTop"></span>DRESSES<span class="borderLink"></span></router-link>
+            </li>
+            <li>
+                <router-link class="navLink category filterLink" to="/headwear"><span class="borderLinkTop"></span>HEADWEAR<span class="borderLink"></span></router-link>
             </li>
         </ul>
     </div>

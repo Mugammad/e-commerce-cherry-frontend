@@ -1,21 +1,32 @@
 <template>
     <div class="filterPanel">
-        <router-link class="filterLink" to="/products">PRODUCTS<span class="borderLink"></span></router-link>
+        <div class="heading">
+            <h2>{{heading.toUpperCase()}}</h2>
+        </div>
     </div>
 </template>
 
 <script>
 export default {
-
+    props: [
+        'heading'
+    ]
 }
 </script>
 
 <style>
+    .filterPanel .heading{
+        border-bottom: 3px solid var(--brown);
+        height: 45px;
+        display: flex;
+        align-items: center;
+    }
     .filterPanel{
         width: 200px;
         min-height: 100%;
         background: var(--pink);
         text-align: left;
+        margin-right: 1rem;
     }
     .filterLink{
         font-weight: bold;
@@ -23,9 +34,6 @@ export default {
         flex-direction: column;
         width: fit-content;
         justify-content: center;
-    }
-    .filterPanel .filterLink{
-        font-size: 1.5rem;
     }
     .borderLink, .borderLinkTop{
         border-bottom: 2px solid var(--brown);
