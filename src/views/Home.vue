@@ -6,22 +6,22 @@
         <button>Tops</button><button>Dresses</button><button>Pants</button><button>Scarves</button>
       </div>
     </div>
-    <div class="sectionLabel">
+    <div v-if="products" class="sectionLabel">
       <h1>NEW IN STOCK</h1>
     </div>
-    <div id="newStock" class="section">
+    <div v-if="products" id="newStock" class="section">
       <div class="newProducts">
-        <div class="newStockimg1" style="background-image: url('https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/D7/F0/c52394d3-2eda-4e09-a045-7e509a224ed6.jpg');">
-          <div class="hoverInfo"><h1>hover info</h1></div>
+        <div class="newStockimg1" :style="`background-image: url('${products[products.length-1].img}');`">
+          <div class="hoverInfo"><h1>{{products[products.length-1].title}}</h1></div>
         </div>
-        <div class="newStockimg2">
-          <div class="hoverInfo"><h1>hover info</h1></div>
+        <div class="newStockimg2" :style="`background-image: url('${products[products.length-2].img}');`">
+          <div class="hoverInfo"><h1>{{products[products.length-2].title}}</h1></div>
         </div>
-        <div class="newStockimg3">
-          <div class="hoverInfo"><h1>hover info</h1></div>
+        <div class="newStockimg3" :style="`background-image: url('${products[products.length-3].img}');`">
+          <div class="hoverInfo"><h1>{{products[products.length-3].title}}</h1></div>
         </div>
-        <div class="newStockimg4">
-          <div class="hoverInfo"><h1>hover info</h1></div>
+        <div class="newStockimg4" :style="`background-image: url('${products[products.length-4].img}');`">
+          <div class="hoverInfo"><h1>{{products[products.length-4].title}}</h1></div>
         </div>
       </div>
     </div>
@@ -44,7 +44,10 @@
 
 export default {
   name: 'Home',
-  components: {}
+  props: [
+    'products'
+  ],
+  components: {},
 }
 </script>
 

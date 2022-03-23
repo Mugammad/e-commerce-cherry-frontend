@@ -6,7 +6,7 @@
     <div class="navMiddle">
         <ul>
             <li>
-                <router-link class="navLink category" to="/products">PRODUCTS</router-link>
+                <router-link class="navLink category filterLink" to="/products"><span class="borderLinkTop"></span>PRODUCTS<span class="borderLink"></span></router-link>
                 <div class="borderLeft"></div>
             </li>
         </ul>
