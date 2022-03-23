@@ -15,9 +15,13 @@ class ProductService{
       },
       { headers: authHeader() })
   }
-  delete(product) {
+  getAll() {
       return axios
-        .delete(API_URL + product, { headers: authHeader() })
+        .get(API_URL)
+  }
+  delete(productId) {
+      return axios
+        .delete(API_URL + productId, { headers: authHeader() })
   }
   update(product) {
     return axios

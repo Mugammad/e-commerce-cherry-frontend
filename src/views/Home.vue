@@ -84,9 +84,6 @@ export default {
     height: 400px;
     width: 100%;
   }
-  #home{
-    margin: 0 10%;
-  }
   #hero{
     display: flex;
     flex-wrap: wrap;

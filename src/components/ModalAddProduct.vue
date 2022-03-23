@@ -80,8 +80,7 @@ export default {
       title: yup
         .string()
         .required("Title is required!")
-        .min(3, "Must be at least 3 characters!")
-        .max(50, "Must be maximum 50 characters!"),
+        .min(3, "Must be at least 3 characters!"),
       category: yup
         .string()
         .required("Category is required!")
@@ -96,8 +95,7 @@ export default {
       description: yup
         .string()
         .required("Description is required!")
-        .min(6, "Must be at least 6 characters!")
-        .max(40, "Must be maximum 40 characters!"),
+        .min(6, "Must be at least 6 characters!"),
       price: yup
         .string()
         .required("Price is required!"),
@@ -124,7 +122,8 @@ export default {
           this.message = data.message;
           this.successful = true;
           this.loading = false;
-          this.toggleAddProductModal()
+          this.$emit('refreshProducts')
+          location.reload()
         },
         (error) => {
           this.message =
