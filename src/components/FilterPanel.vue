@@ -22,11 +22,11 @@ export default {
         align-items: center;
     }
     .filterPanel{
-        width: 200px;
+        min-width: 200px;
         min-height: 100%;
         background: var(--pink);
         text-align: left;
-        margin-right: 1rem;
+        margin-right: 2rem;
     }
     .filterLink{
         font-weight: bold;

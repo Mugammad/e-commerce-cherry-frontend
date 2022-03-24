@@ -40,14 +40,24 @@ export default {
       console.log(this.filteredProducts);
     }
   },
+  computed: {
+    filteredProducts() {
+        if(this.products){
+            this.filteredProducts = this.products.filter(product => product.category == 'Tops')
+            return this.filteredProducts
+        }
+    }
+    
+  },
 }
 </script>
 
 <style>
 .products{
   display: flex;
-  gap: 1.333333%;
-  padding-top: 1rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-top: 2rem;
 }
   .productsPage{
     padding-top: 5rem;

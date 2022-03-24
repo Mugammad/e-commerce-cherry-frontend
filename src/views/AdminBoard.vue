@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="productsContainer">
-        <AdminCard v-for="product in products" :key="product._id" :product="product"/>
+        <AdminCard v-for="product in products" :key="product._id" :product="product" @editProduct="editProduct"/>
     </div>
   </div>
 </template>
@@ -33,6 +33,9 @@ export default {
   methods: {
     toggleAddProductModal(){
       this.$emit('toggleAddProduct')
+    },
+    editProduct(product){
+      this.$emit('editProduct', product)
     }
   },
   computed: {

@@ -1,19 +1,19 @@
 <template>
 <div class="background" @click.self="toggleAddProductModal">
     <div class="addProduct">
-      <h1>New Product?</h1>
-      <Form @submit="addProduct" :validation-schema="schema" class="addProductForm">
+      <h1>New stock or what?</h1>
+      <Form @submit="updateProduct" :validation-schema="schema" class="addProductForm">
         <div class="leftModal">
           <div class="form-group">
-            <Field name="title" type="text" class="form-content" placeholder="Title of Product"/>
+            <Field name="title" type="text" class="form-content" placeholder="Title of Product" :value="product.title"/>
             <ErrorMessage name="title" class="error-feedback" />
           </div>
           <div class="form-group">
-            <Field name="category" type="text" class="form-content" placeholder="Choose Category"/>
+            <Field name="category" type="text" class="form-content" placeholder="Choose Category" :value="product.category"/>
             <ErrorMessage name="category" class="error-feedback" />
           </div>
           <div class="form-group">
-            <Field name="size" type="text" class="form-content" placeholder="Size"/>
+            <Field name="size" type="text" class="form-content" placeholder="Size" :value="product.size"/>
             <ErrorMessage name="size" class="error-feedback" />
           </div>
           <div class="form-group">
@@ -26,15 +26,15 @@
         </div>
         <div class="rightModal">
           <div class="form-group">
-            <Field name="price" type="number" class="form-content" placeholder="Price in ZAR"/>
+            <Field name="price" type="number" class="form-content" placeholder="Price in ZAR" :value="product.price"/>
             <ErrorMessage name="price" class="error-feedback" />
           </div>
           <div class="form-group">
-            <Field name="description" type="text" class="form-content desription" placeholder="Description"/>
+            <Field name="description" type="text" class="form-content desription" placeholder="Description" :value="product.description"/>
             <ErrorMessage name="description" class="error-feedback" />
           </div>
           <div class="form-group">
-            <Field name="qty" type="number" class="form-content" placeholder="Quantity"/>
+            <Field name="qty" type="number" class="form-content" placeholder="Quantity" :value="product.qty"/>
             <transition name="fade">
               <ErrorMessage name="qty" class="error-feedback" />
             </transition>
@@ -46,7 +46,7 @@
                   v-show="loading"
                   class="spinner-border spinner-border-sm"
                 ></span>
-                <span>Add to database </span>
+                <span>Save changes</span>
               </button>
             </div>
             <div class="form-group">
@@ -56,7 +56,6 @@
             </div>
           </div>
         </div>
-          
       </Form>
     </div>
  </div>
@@ -67,7 +66,10 @@ import ProductService from '../services/product.services'
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 export default {
-  name: "Add",
+  name: "Update",
+  props:[
+    'product'
+  ],
   components: {
     Form,
     Field,
@@ -106,17 +108,19 @@ export default {
       message: "",
       schema,
       imgPreviewLink: null,
+      productId: null
     };
   },
   methods: {
     toggleAddProductModal(){
         this.$emit('toggleAddProduct')
     },
-    addProduct(product) {
+    updateProduct(newProduct) {
       this.message = "";
       this.successful = false;
       this.loading = true;
-      ProductService.create(product).then(
+      const productID = this.productId
+      ProductService.updateProduct(newProduct, productID).then(
         (data) => {
           this.message = data.message;
           this.successful = true;
@@ -137,98 +141,14 @@ export default {
       );
     },
   },
+  computed: {
+    imgPreviewLink(){
+      if(this.product){
+        this.imgPreviewLink = this.product.img
+        this.productId = this.product._id
+        return this.imgPreviewLink
+      }
+    }
+  }
 };
 </script>
-
-<style>
-  #addProductBtn{
-    background: var(--pink);
-    border-radius: none;
-    border: 3px solid var(--brown);
-    color: var(--brown);
-    font-size: 1.3rem;
-    font-weight: bold;
-    transition: 0.1s;
-    margin-top: 2rem;
-    margin-left: auto;
-    opacity: 0.6;
-  }
-  #addProductBtn:hover{
-    opacity: 1;
-    transition: 0.3s;
-  }
-  .desription{
-    border: 2px solid var(--brown) !important;
-    padding: 0.5rem;
-    min-width: 100%;
-    box-sizing: border-box;
-    min-height: 200px;
-  }
-  .addProduct{
-    text-align: left;
-    background: var(--pink);
-    border-radius: 5px;
-    padding: 1rem;
-    margin: 0 auto;
-    max-width: 900px;
-    width: 100%;
-    height: 90%;
-    -ms-overflow-style: none; /* for Internet Explorer, Edge */
-    scrollbar-width: none; /* for Firefox */
-    overflow-y: scroll;
-  }
-  .addProduct h1{
-    padding: 1rem;
-  }
-  .background{
-    padding: 2rem;
-    box-sizing: border-box;
-  }
-  .addProductForm{
-    display: flex;
-    flex-wrap: wrap;
-  }
-  .leftModal, .rightModal{
-    width: 50%;
-    box-sizing: border-box;
-    padding: 1rem;
-  }
-  .error-feedback{
-    color: tomato;
-    margin-bottom: 1rem;
-  }
-  .form-content{
-    border: none;
-    background: var(--pink);
-    border-bottom: 2px solid var(--brown);
-    opacity: 0.6;
-    transition: 0.3s;
-    font-size: 1rem;
-  }
-  .form-content:focus{
-    outline: none;
-    opacity: 1;
-    transition: 0.3s;
-  }
-  .fade3-enter-active,
-  .fade3-leave-active {
-    transition: opacity 0.3s;
-  }
-  .fade3-enter{
-    opacity: 0;
-  }
-  .fade3-leave-to{
-    opacity: 0;
-  }
-  .imgPreview{
-    width: 200px;
-    height: 300px;
-    background: rgba(194, 189, 189, 0.3);
-    border-radius: 5px;
-  }
-  .imgPreview img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-</style>

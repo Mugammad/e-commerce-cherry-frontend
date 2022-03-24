@@ -11,7 +11,7 @@
             <button v-if="!this.currentUser" @click="toggleSignUp()">Sign up</button>
         </div>
         <div class="dropdown" v-if="this.currentUser">
-            <a href="#">{{ currentUser.username }}</a>
+            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"/></svg>{{ currentUser.username }}</a>
             <ul>
                 <li><router-link class="navLink" to="/account">Account</router-link></li>
                 <li><a href="" @click="logOut()">Logout</a></li>
@@ -107,12 +107,13 @@ export default {
     }
     .dropdown{
         height: 100%;
+        margin-left: 10px;
     }
     .dropdown ul{
         position: absolute;
-        background: black;
-        color: white;
-        padding: 10px;
+        background: var(--pink);
+        padding: 15px;
+        padding-top: 0;
         top: 54px;
         display: none;
     }
@@ -125,9 +126,22 @@ export default {
         text-decoration: none;
         list-style-type: none;
         cursor: pointer;
+        opacity: 0.6;
+    }
+    .dropdown ul li a, .dropdown ul li{
+      padding: 0;
+      padding-top: 0.25rem;
+    }
+    .dropdown ul li:first-of-type{
+      border-top: 1px solid var(--brown);
     }
     .dropdown ul li:hover{
-        background: green;
+        opacity: 1;
+    }
+    .dropdown a svg{
+      fill: var(--brown);
+      width: 15px;
+      height: 15px;
     }
 
 </style>

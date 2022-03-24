@@ -1,10 +1,11 @@
 <template>
   <Navbar :userInfo="userInfo" @toggleLogin="toggleLogin" @toggleSignUp="toggleSignUp"/>
   <Navbar2/>
-  <router-view @toggleLogin="toggleLogin" @toggleAddProduct="toggleAddProduct" :products="products"/>
+  <router-view @toggleLogin="toggleLogin" @toggleAddProduct="toggleAddProduct" :products="products" @editProduct="editProduct"/>
   <ModalLogin v-if="showLoginModal" @toggleLogin="toggleLogin"/>
   <ModalSignUp v-if="showSignUpModal" @toggleLogin="toggleSignUp"/>
   <ModalAddProduct v-if="showAddProductModal" @toggleAddProduct="toggleAddProduct" @refreshProducts="refreshProducts"/>
+  <ModalUpdateProduct v-if="showUpdateProductModal" @toggleAddProduct="toggleUpdateProduct" @refreshProducts="refreshProducts" :product="ProductToEdit"/>
   <Footer/>
 </template>
 
@@ -17,6 +18,7 @@ import Navbar2 from './components/Navbar2.vue'
 import ModalLogin from './components/ModalLogin.vue'
 import ModalSignUp from './components/ModalSignUp.vue'
 import ModalAddProduct from './components/ModalAddProduct.vue'
+import ModalUpdateProduct from './components/ModalUpdateProduct.vue'
 import ConfirmAction from './components/ConfirmAction.vue'
 import Footer from './components/Footer.vue'
 export default {
@@ -26,6 +28,7 @@ export default {
     ModalLogin,
     ModalSignUp,
     ModalAddProduct,
+    ModalUpdateProduct,
     ConfirmAction,
     Footer
   },
@@ -35,11 +38,18 @@ export default {
       showLoginModal: false,
       showSignUpModal: false,
       showAddProductModal: false,
+      showUpdateProductModal: false,
       products: '',
-      loading: false
+      loading: false,
+      ProductToEdit: ''
     }
   },
   methods: {
+    editProduct(product){
+      this.ProductToEdit = product
+      this.showUpdateProductModal = true
+      console.log(this.ProductToEdit);
+    },
     toggleLogin(){
       this.showLoginModal = !this.showLoginModal
     },
@@ -48,6 +58,9 @@ export default {
     },
     toggleAddProduct(){
       this.showAddProductModal = !this.showAddProductModal
+    },
+    toggleUpdateProduct(){
+      this.showUpdateProductModal = !this.showUpdateProductModal
     },
     refreshProducts(){
       this.loading = false;
@@ -94,5 +107,27 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: var(--black);
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  /* box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+  opacity: 0; */
+  display: none;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #8262514d;
+  opacity: 0.3;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brown);
 }
 </style>

@@ -23,14 +23,16 @@ class ProductService{
       return axios
         .delete(API_URL + productId, { headers: authHeader() })
   }
-  update(product) {
+  updateProduct(product, productID) {
     return axios
-      .patch(API_URL + product._id,{
+      .patch(API_URL + productID,{
         title: product.title,
         category: product.category,
+        price: product.price,
         description: product.description,
         img: product.img,
-        price: product.price
+        qty: product.qty,
+        size: product.size,
       }, 
         { headers: authHeader() })
 }
