@@ -1,11 +1,13 @@
 <template>
-  <div class="productCard">
+  <div class="productCard" @click="viewProduct(product)">
       <div class="productImg">
           <img :src="product.img" alt="">
       </div>
       <div class="productBrief">
           <span>{{ product.title }}</span>
-          <h3>R{{ product.price }}</h3>
+          <h3 v-if="product.salePrice">R{{ product.salePrice }}</h3>
+          <h4 v-if="product.salePrice" class="sale">ON SALE</h4>
+          <h3 v-else>R{{ product.price }}</h3>
       </div>
   </div>
 </template>
@@ -14,14 +16,23 @@
 export default {
     props: [
         'product'
-    ]
+    ],
+    methods: {
+        viewProduct(product){
+            this.$emit('viewProduct', product)
+        }
+    },
 }
 </script>
 
 <style>
+    .sale{
+        color: seagreen;
+    }
     .productCard{
         max-width: 200px;
         height: 300px;
+        cursor: pointer;
     }
     .productCard .productImg{
         width: 100%;

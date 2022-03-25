@@ -3,7 +3,10 @@
     <div id="hero" class="section">
       <div class="imagePlaceholder"></div>
       <div class="heroBtns">
-        <button>Tops</button><button>Dresses</button><button>Pants</button><button>Scarves</button>
+        <router-link class="herobtn" to="/products"><h3>TOPS</h3></router-link>
+        <router-link class="herobtn" to="/bottoms"><h3>BOTTOMS</h3></router-link>
+        <router-link class="herobtn" to="/dresses"><h3>DRESSES</h3></router-link>
+        <router-link class="herobtn" to="/headwear"><h3>HEADWEAR</h3></router-link>
       </div>
     </div>
     <div v-if="products" class="sectionLabel">
@@ -11,47 +14,100 @@
     </div>
     <div v-if="products" id="newStock" class="section">
       <div class="newProducts">
-        <div class="newStockimg1" :style="`background-image: url('${products[products.length-1].img}');`">
+        <div @click="viewProduct(products[products.length-1])" class="newStockimg1" :style="`background-image: url('${products[products.length-1].img}');`">
           <div class="hoverInfo"><h1>{{products[products.length-1].title}}</h1></div>
         </div>
-        <div class="newStockimg2" :style="`background-image: url('${products[products.length-2].img}');`">
+        <div @click="viewProduct(products[products.length-2])" class="newStockimg2" :style="`background-image: url('${products[products.length-2].img}');`">
           <div class="hoverInfo"><h1>{{products[products.length-2].title}}</h1></div>
         </div>
-        <div class="newStockimg3" :style="`background-image: url('${products[products.length-3].img}');`">
+        <div @click="viewProduct(products[products.length-3])" class="newStockimg3" :style="`background-image: url('${products[products.length-3].img}');`">
           <div class="hoverInfo"><h1>{{products[products.length-3].title}}</h1></div>
         </div>
-        <div class="newStockimg4" :style="`background-image: url('${products[products.length-4].img}');`">
+        <div @click="viewProduct(products[products.length-4])" class="newStockimg4" :style="`background-image: url('${products[products.length-4].img}');`">
           <div class="hoverInfo"><h1>{{products[products.length-4].title}}</h1></div>
         </div>
       </div>
     </div>
-    <div class="sectionLabel">
+    <div v-if="saleProducts" class="sectionLabel">
       <h1>ON SALE</h1>
     </div>
-    <div class="section" id="onSale">
+    <div v-if="saleProducts" class="section" id="onSale">
       <div class="saleItems">
-        <div class="saleItem"></div>
-        <div class="saleItem"></div>
-        <div class="saleItem"></div>
-        <div class="saleItem"></div>
+        <div v-for="(sale, i) of saleProducts" :key="sale._id" class="saleItem">
+          <div v-if="i<4" @click="viewProduct(sale)">
+            <img :src="sale.img" alt="">
+            <div class="productBrief">
+                <span>{{ sale.title }}</span>
+                <h3>ONLY <b>R{{ sale.salePrice }}</b></h3>
+                <h4>WAS R{{ sale.price }}</h4>
+            </div>
+          </div>
+        </div>
       </div>
-      <a href="">view more</a>
+      <!-- <a href="">view more</a> -->
+    </div>
+    <div class="loader" v-if="loading">
+      <pulse-loader :loading="loading" :color="color" :size="size"></pulse-loader>
     </div>
   </div>
 </template>
 
 <script>
-
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 export default {
   name: 'Home',
   props: [
     'products'
   ],
-  components: {},
+  data() {
+    return {
+      saleProducts: null,
+      loading: false,
+      color: '#826251'
+    }
+  },
+  components: {
+    PulseLoader
+  },
+  methods: {
+    viewProduct(product){
+      this.$emit('viewProduct', product)
+    }
+  },
+  computed: {
+    saleProducts() {
+        if(this.products != ''){
+              this.saleProducts = this.products.filter(product => product.salePrice)
+            return this.saleProducts
+        }
+    },
+    loading(){
+      if(this.products == ''){
+        this.loading = true
+      }else{
+        this.loading = false
+      }
+      return this.loading
+    }
+  },
 }
 </script>
 
 <style>
+  .loader{
+    position: fixed;
+    width: 100%;
+    min-height: 100vh;
+    background: rgba(255, 255, 255, 0.493);
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .productBrief h4{
+    opacity: 0.6;
+  }
   .sectionLabel{
     position: absolute;
     width: 80%;
@@ -75,8 +131,12 @@ export default {
   }
   .saleItem{
     width: 24%;
-    height: 400px;
-    background: grey;
+    cursor: pointer;
+  }
+  .saleItem img{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
   }
   .section{
     padding: 100px 0;
@@ -96,15 +156,19 @@ export default {
     width: 100%;
   }
 
-  .heroBtns button{
+  .heroBtns .herobtn{
     width: 25%;
     height: 80px;
     background: var(--pink);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
     transition: 0.1s;
   }
 
-  .heroBtns button:hover{
-    background: black;
+  .heroBtns .herobtn:hover{
+    background: var(--brown);
     color: white;
     transition: 0.3s;
   }
@@ -120,6 +184,7 @@ export default {
 
   .newProducts div{
     background-size: cover;
+    cursor: pointer;
   }
 
   .hoverInfo{

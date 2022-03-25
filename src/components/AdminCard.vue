@@ -89,6 +89,7 @@ export default {
     font-style: italic;
     font-weight: 300;
     font-size: 3rem;
+    display: flex;
 }
 .adminCard{
     display: flex;

@@ -1,12 +1,13 @@
 <template>
   <Navbar :userInfo="userInfo" @toggleLogin="toggleLogin" @toggleSignUp="toggleSignUp"/>
   <Navbar2/>
-  <router-view @toggleLogin="toggleLogin" @toggleAddProduct="toggleAddProduct" :products="products" @editProduct="editProduct"/>
+  <router-view @toggleLogin="toggleLogin" @toggleAddProduct="toggleAddProduct" :products="products" @editProduct="editProduct" @viewProduct="viewProduct"/>
+  <Footer/>
   <ModalLogin v-if="showLoginModal" @toggleLogin="toggleLogin"/>
   <ModalSignUp v-if="showSignUpModal" @toggleLogin="toggleSignUp"/>
   <ModalAddProduct v-if="showAddProductModal" @toggleAddProduct="toggleAddProduct" @refreshProducts="refreshProducts"/>
   <ModalUpdateProduct v-if="showUpdateProductModal" @toggleAddProduct="toggleUpdateProduct" @refreshProducts="refreshProducts" :product="ProductToEdit"/>
-  <Footer/>
+  <SingleProduct v-if="showSingleProduct" @toggleViewProduct="toggleViewProduct" :product="singleProduct"/>
 </template>
 
 <script>
@@ -20,6 +21,7 @@ import ModalSignUp from './components/ModalSignUp.vue'
 import ModalAddProduct from './components/ModalAddProduct.vue'
 import ModalUpdateProduct from './components/ModalUpdateProduct.vue'
 import ConfirmAction from './components/ConfirmAction.vue'
+import SingleProduct from './components/SingleProduct.vue'
 import Footer from './components/Footer.vue'
 export default {
   components: {
@@ -30,6 +32,7 @@ export default {
     ModalAddProduct,
     ModalUpdateProduct,
     ConfirmAction,
+    SingleProduct,
     Footer
   },
   data() {
@@ -39,9 +42,11 @@ export default {
       showSignUpModal: false,
       showAddProductModal: false,
       showUpdateProductModal: false,
+      showSingleProduct: false,
       products: '',
       loading: false,
-      ProductToEdit: ''
+      ProductToEdit: '',
+      singleProduct: ''
     }
   },
   methods: {
@@ -61,6 +66,13 @@ export default {
     },
     toggleUpdateProduct(){
       this.showUpdateProductModal = !this.showUpdateProductModal
+    },
+    toggleViewProduct(){
+      this.showSingleProduct = !this.showSingleProduct
+    },
+    viewProduct(product){
+      this.singleProduct = product
+      this.showSingleProduct = !this.showSingleProduct
     },
     refreshProducts(){
       this.loading = false;

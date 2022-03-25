@@ -4,24 +4,17 @@
       <h1>LOGIN</h1>
       <Form @submit="handleLogin" :validation-schema="schema">
         <div class="form-group">
-          <label for="username" style="padding-top:13px">Username</label>
-          <Field name="username" type="text" class="form-content" />
-          <div class="form-border"></div>
+          <Field name="username" type="text" class="form-content" placeholder="Enter Username"/>
           <ErrorMessage name="username" class="error-feedback" />
         </div>
         <div class="form-group">
-          <label for="password" style="padding-top:13px">Password</label>
-          <Field name="password" type="password" class="form-content" />
-          <div class="form-border"></div>
+          <Field name="password" type="password" class="form-content" placeholder="Enter password"/>
           <ErrorMessage name="password" class="error-feedback" />
         </div>
         <div class="form-group">
-          <button id="submit-btn" :disabled="loading">
-            <span
-              v-show="loading"
-              class="spinner-border spinner-border-sm"
-            ></span>
-            <span>Login</span>
+          <button id="addProductBtn" :disabled="loading">
+            <pulse-loader :loading="loading" color="#826251" size="0.5rem"></pulse-loader>
+            <span v-show="!loading">Login</span>
           </button>
         </div>
         <!-- <a :to="{ name: 'SignUp' }" id="signup">Don't have account yet?</a> -->
@@ -36,6 +29,7 @@
 </template>
 
 <script>
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 export default {
@@ -44,6 +38,7 @@ export default {
     Form,
     Field,
     ErrorMessage,
+    PulseLoader
   },
   data() {
     const schema = yup.object().shape({
@@ -132,8 +127,9 @@ Form{
     max-width: 500px;
     width: 100%;
     padding: 20px;
-    background: aliceblue;
+    background: var(--pink);
     border-radius: 5px;
     margin: 0 auto;
+    text-align: left;
 }
 </style>

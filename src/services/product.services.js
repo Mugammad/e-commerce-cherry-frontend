@@ -29,6 +29,7 @@ class ProductService{
         title: product.title,
         category: product.category,
         price: product.price,
+        salePrice: product.salePrice,
         description: product.description,
         img: product.img,
         qty: product.qty,

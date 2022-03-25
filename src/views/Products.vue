@@ -12,7 +12,7 @@
         </div>
       </div>
         <div v-if="filteredProducts" class="products">
-          <ProductCard v-for="product in filteredProducts" :key="product._id" :product="product"/>
+          <ProductCard v-for="product in filteredProducts" :key="product._id" :product="product" @viewProduct="viewProduct"/>
         </div>
     </div>
   </div>
@@ -33,6 +33,11 @@ export default {
   components: {
     FilterPanel,
     ProductCard
+  },
+  methods: {
+    viewProduct(product){
+      this.$emit('viewProduct', product)
+    }
   },
   created() {
     if(this.products){
@@ -56,7 +61,8 @@ export default {
 .products{
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: left;
+  gap: 2rem;
   padding-top: 2rem;
 }
   .productsPage{
