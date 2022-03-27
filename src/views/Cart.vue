@@ -1,18 +1,20 @@
 <template>
   <div class="mainSection">
     <div class="cart">
-      <div v-for="item in cart" :key="item.id" class="cartItem">
-          <h1>{{item.title}}</h1>
-      </div>
+      <CartCard v-for="item in cart" :key="item.id" :cartItem="item" />
     </div>
   </div>
 </template>
 
 <script>
+import CartCard from '../components/CartCard.vue'
 export default {
   props: [
     'cart'
   ],
+  components: {
+    CartCard
+  },
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
