@@ -110,7 +110,6 @@ export default {
 }
 .cardInfo {
     width: 68%;
-    height: 200px;
     text-align: left;
     margin-right: 2%;
 }

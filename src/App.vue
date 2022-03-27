@@ -1,7 +1,7 @@
 <template>
   <Navbar :userInfo="userInfo" @toggleLogin="toggleLogin" @toggleSignUp="toggleSignUp" :cartQty="cart.quantity"/>
   <Navbar2/>
-  <router-view @toggleLogin="toggleLogin" @toggleAddProduct="toggleAddProduct" :products="products" :cart="cart.products" @editProduct="editProduct" @viewProduct="viewProduct"/>
+  <router-view @toggleLogin="toggleLogin" @toggleAddProduct="toggleAddProduct" :products="products" :cart="cart.products" @editProduct="editProduct" @viewProduct="viewProduct" :cartQty="cart.quantity" @refreshCart="refreshCart"/>
   <Footer/>
   <ModalLogin v-if="showLoginModal" @toggleLogin="toggleLogin" @refreshCart="refreshCart"/>
   <ModalSignUp v-if="showSignUpModal" @toggleLogin="toggleSignUp"/>

@@ -5,10 +5,10 @@
       <router-link v-if="this.isAdmin" class="navLink" to="/admin">Admin Board</router-link>
     </div>
     <div class="navEnd">
-        <div>
-            <router-link class="navLink" to="/cart">Cart <span v-if="cartQty" id="cartQty">{{cartQty}}</span></router-link>
-            <button v-if="!this.currentUser" @click="toggleLogin()">Login</button>
-            <button v-if="!this.currentUser" @click="toggleSignUp()">Sign up</button>
+        <div class="navEndBtns">
+            <router-link class="navLink" to="/cart">Cart <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M96 0C107.5 0 117.4 8.19 119.6 19.51L121.1 32H541.8C562.1 32 578.3 52.25 572.6 72.66L518.6 264.7C514.7 278.5 502.1 288 487.8 288H170.7L179.9 336H488C501.3 336 512 346.7 512 360C512 373.3 501.3 384 488 384H159.1C148.5 384 138.6 375.8 136.4 364.5L76.14 48H24C10.75 48 0 37.25 0 24C0 10.75 10.75 0 24 0H96zM128 464C128 437.5 149.5 416 176 416C202.5 416 224 437.5 224 464C224 490.5 202.5 512 176 512C149.5 512 128 490.5 128 464zM512 464C512 490.5 490.5 512 464 512C437.5 512 416 490.5 416 464C416 437.5 437.5 416 464 416C490.5 416 512 437.5 512 464z"/></svg><span v-if="cartQty" id="cartQty">{{cartQty}}</span></router-link>
+            <button v-if="!this.currentUser" @click="toggleLogin()"><h3>Login</h3></button>
+            <button v-if="!this.currentUser" @click="toggleSignUp()"><h3>Sign up</h3></button>
         </div>
         <div class="dropdown" v-if="this.currentUser">
             <a href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"/></svg>{{ currentUser.username }}</a>
@@ -58,6 +58,16 @@ export default {
 </script>
 
 <style>
+    .navEndBtns *:hover{
+      color: var(--brown);
+      transition: 0.3s;
+    }
+    .navLink svg{
+      height: 20px;
+      width: 20px;
+      fill: var(--brown);
+      margin-left: 0.5rem;
+    }
     #cartQty{
       font-size: 0.8rem;
       background: var(--brown);
@@ -67,7 +77,7 @@ export default {
       display: flex;
       justify-content: center;
       border-radius: 10px;
-      margin: 0 0.5rem;
+      margin-left: 0.5rem;
     }
     .navEnd, .navStart{
         display: flex;
