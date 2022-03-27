@@ -70,7 +70,7 @@
             <div class="form-group">
               <button id="addProductBtn" :disabled="loading">
                 <pulse-loader :loading="loading" color="#826251" size="0.5rem"></pulse-loader>
-                <span v-show="!loading">Add to database</span>
+                <span v-show="!loading">Save changes</span>
               </button>
             </div>
             <div class="form-group">
