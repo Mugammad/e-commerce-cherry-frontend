@@ -1,11 +1,18 @@
 <template>
   <div class="mainSection">
-    <h1>this is cart</h1>
+    <div class="cart">
+      <div v-for="item in cart" :key="item.id" class="cartItem">
+          <h1>{{item.title}}</h1>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: [
+    'cart'
+  ],
   computed: {
     currentUser() {
       return this.$store.state.auth.user;

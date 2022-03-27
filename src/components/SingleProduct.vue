@@ -59,6 +59,11 @@ export default {
     props: [
         'product'
     ],
+    computed: {
+        currentUser() {
+          return this.$store.state.auth.user;
+        }
+    },
     components: {
       Form,
       Field,
@@ -71,11 +76,19 @@ export default {
         },
         addToCart(product){
             this.loading = true;
-            CartService.addToCart(product._id, this.qty).then(
-                (data) => {
-                this.message = data.message;
+            if(!this.currentUser){
+                this.$emit('toggleViewProduct')
+                this.$emit('toggleLogin')
+                this.$router.push("/");
+            }else{
+            CartService.addToCart(product._id, parseInt(this.qty)).then(
+                (response) => {
+                this.message = response.message;
                 this.successful = true;
                 this.loading = false;
+                const user = JSON.parse(localStorage.getItem("user"));
+                user.accessToken = response.data.accessToken
+                localStorage.setItem('user', JSON.stringify(user));
                 location.reload()
                 },
                 (error) => {
@@ -89,6 +102,7 @@ export default {
                 this.loading = false;
                 }
             );
+            }
         }
     },
 }

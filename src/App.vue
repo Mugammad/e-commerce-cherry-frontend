@@ -1,17 +1,18 @@
 <template>
-  <Navbar :userInfo="userInfo" @toggleLogin="toggleLogin" @toggleSignUp="toggleSignUp"/>
+  <Navbar :userInfo="userInfo" @toggleLogin="toggleLogin" @toggleSignUp="toggleSignUp" :cartQty="cart.quantity"/>
   <Navbar2/>
-  <router-view @toggleLogin="toggleLogin" @toggleAddProduct="toggleAddProduct" :products="products" @editProduct="editProduct" @viewProduct="viewProduct"/>
+  <router-view @toggleLogin="toggleLogin" @toggleAddProduct="toggleAddProduct" :products="products" :cart="cart.products" @editProduct="editProduct" @viewProduct="viewProduct"/>
   <Footer/>
-  <ModalLogin v-if="showLoginModal" @toggleLogin="toggleLogin"/>
+  <ModalLogin v-if="showLoginModal" @toggleLogin="toggleLogin" @refreshCart="refreshCart"/>
   <ModalSignUp v-if="showSignUpModal" @toggleLogin="toggleSignUp"/>
   <ModalAddProduct v-if="showAddProductModal" @toggleAddProduct="toggleAddProduct" @refreshProducts="refreshProducts"/>
   <ModalUpdateProduct v-if="showUpdateProductModal" @toggleAddProduct="toggleUpdateProduct" @refreshProducts="refreshProducts" :product="ProductToEdit"/>
-  <SingleProduct v-if="showSingleProduct" @toggleViewProduct="toggleViewProduct" :product="singleProduct"/>
+  <SingleProduct v-if="showSingleProduct" @toggleLogin="toggleLogin" @toggleViewProduct="toggleViewProduct" :product="singleProduct"/>
 </template>
 
 <script>
 import ProductService from './services/product.services'
+import CartService from './services/cart.services'
 // import UserService from "./services/user.service";
 
 import Navbar from "./components/Navbar.vue"
@@ -37,16 +38,21 @@ export default {
   },
   data() {
     return {
-      userInfo: "",
       showLoginModal: false,
       showSignUpModal: false,
       showAddProductModal: false,
       showUpdateProductModal: false,
       showSingleProduct: false,
       products: '',
+      cart: '',
       loading: false,
       ProductToEdit: '',
       singleProduct: ''
+    }
+  },
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
     }
   },
   methods: {
@@ -91,10 +97,31 @@ export default {
             error.toString();
         }
       );
-    }
+    },
+    refreshCart(){
+      this.loading = false;
+      CartService.getCart().then(
+        (response) => {
+          this.cart = response.data.cart
+          this.successful = true;
+          this.loading = false;
+        },
+        (error) => {
+          this.cart =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+        }
+      );
+    },
   },
   created() {
     this.refreshProducts()
+    if(this.currentUser){
+      this.refreshCart()
+    }
   },
 }
 </script>

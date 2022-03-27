@@ -6,7 +6,7 @@
     </div>
     <div class="navEnd">
         <div>
-            <router-link class="navLink" to="/cart">Cart</router-link>
+            <router-link class="navLink" to="/cart">Cart <span v-if="cartQty" id="cartQty">{{cartQty}}</span></router-link>
             <button v-if="!this.currentUser" @click="toggleLogin()">Login</button>
             <button v-if="!this.currentUser" @click="toggleSignUp()">Sign up</button>
         </div>
@@ -24,7 +24,8 @@
 <script>
 export default {
   props: [
-      'userInfo'
+      'userInfo',
+      'cartQty'
   ],
   data() {
       return {
@@ -57,6 +58,17 @@ export default {
 </script>
 
 <style>
+    #cartQty{
+      font-size: 0.8rem;
+      background: var(--brown);
+      color: white;
+      height: 20px;
+      min-width: 20px;
+      display: flex;
+      justify-content: center;
+      border-radius: 10px;
+      margin: 0 0.5rem;
+    }
     .navEnd, .navStart{
         display: flex;
         flex-wrap: wrap;

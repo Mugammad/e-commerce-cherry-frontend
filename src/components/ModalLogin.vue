@@ -75,7 +75,7 @@ export default {
           if(this.currentUser.roles.includes("ROLE_ADMIN")){
               this.$router.push("/admin");
           }else{
-            this.$router.push("/account");
+            this.$emit('refreshCart')
           }
           this.toggleLogin()
         },

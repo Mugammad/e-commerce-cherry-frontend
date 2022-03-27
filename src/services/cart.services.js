@@ -11,7 +11,7 @@ class ProductService{
   }
   getCart() {
       return axios
-        .get(API_URL)
+        .get(API_URL, { headers: authHeader() })
   }
   delete() {
       return axios
