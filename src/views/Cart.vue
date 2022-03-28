@@ -9,7 +9,7 @@
 
         </div>
       </div>
-      <CartCard v-for="item in cart" :key="item.id" :cartItem="item" @removeProduct="removeProduct"/>
+      <CartCard v-for="item in cart" :key="item.id" :cartItem="item" @removeProduct="removeProduct" @updateQty="updateQty"/>
       <div v-if="cart">
         <div v-if="!cart[0]" class="emptyMessage"><h1>Your cart is empty :(</h1></div>
       </div>
@@ -106,6 +106,29 @@ export default {
             localStorage.setItem('user', JSON.stringify(user));
             this.$emit('refreshCart')
             location.reload()
+            },
+            (error) => {
+            this.message =
+                (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+                error.message ||
+                error.toString();
+            this.loading = false;
+            }
+        );
+    },
+    updateQty(productId, quantity){
+        this.message = "";
+        this.loading = true;
+        CartService.updateQuantity(productId, quantity).then(
+            (response) => {
+            this.message = response.message;
+            this.loading = false;
+            const user = JSON.parse(localStorage.getItem("user"));
+            user.accessToken = response.data.accessToken
+            localStorage.setItem('user', JSON.stringify(user));
+            this.$emit('refreshCart')
             },
             (error) => {
             this.message =

@@ -22,6 +22,11 @@ class ProductService{
       .patch(API_URL + productID,{}, 
         { headers: authHeader() })
 }
+updateQuantity(productID, quantity) {
+    return axios
+      .put(API_URL + productID, {qty: parseInt(quantity)}, 
+        { headers: authHeader() })
+}
 };
 
 export default new ProductService();

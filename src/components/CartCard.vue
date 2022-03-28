@@ -8,7 +8,7 @@
             <p class="productId"><b>Product ID:</b> {{ cartItem.id }}</p>
             <div class="input">
                 <h4 class="price">R{{ price }} X</h4>
-                <input type="number" class="form-content cartQty" v-model="qty">
+                <input @change="updateQty(cartItem.id)" type="number" class="form-content cartQty" v-model="qty">
             </div>
             <p><b>Total:</b> R{{ price*cartItem.qty }}</p>
         </div>
@@ -52,6 +52,10 @@ export default {
         pressedDelete(){
             this.deletePressed = !this.deletePressed
         },
+        updateQty(productId){
+            let quantity = this.qty
+            this.$emit('updateQty',productId, quantity)
+        }
     },
 }
 </script>
