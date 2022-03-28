@@ -1,7 +1,7 @@
 <template>
   <div v-if="!this.isAdmin" id="nav2">
     <div class="navStart">
-        <h1>Store LOGO</h1>
+        <h1 id="storeLogo">Cherry Blossom Couture</h1>
     </div>
     <div class="navMiddle">
         <ul>
@@ -71,5 +71,11 @@ export default {
     .navMiddle *{
         display: flex;
         align-items: center;
+    }
+    #storeLogo{
+        font-family: 'Hurricane', cursive;
+        font-size: 2.5rem;
+        font-weight: 400;
+        color: var(--brown);
     }
 </style>
