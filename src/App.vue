@@ -1,13 +1,14 @@
 <template>
   <Navbar :userInfo="userInfo" @toggleLogin="toggleLogin" @toggleSignUp="toggleSignUp" :cartQty="cart.quantity"/>
   <Navbar2/>
-  <router-view @toggleLogin="toggleLogin" @toggleAddProduct="toggleAddProduct" :products="products" :cart="cart.products" @editProduct="editProduct" @viewProduct="viewProduct" :cartQty="cart.quantity" @refreshCart="refreshCart"/>
+  <router-view @toggleLogin="toggleLogin" @toggleAddProduct="toggleAddProduct" :products="products" :cart="cart.products" @editProduct="editProduct" @viewProduct="viewProduct" :cartQty="cart.quantity" @refreshCart="refreshCart" @confirmClearCart="confirmClearCart"/>
   <Footer/>
-  <ModalLogin v-if="showLoginModal" @toggleLogin="toggleLogin" @refreshCart="refreshCart"/>
+  <ModalLogin v-if="showLoginModal" @toggleLogin="toggleLogin" @signUpRedirect="signUpRedirect" @refreshCart="refreshCart"/>
   <ModalSignUp v-if="showSignUpModal" @toggleLogin="toggleSignUp"/>
   <ModalAddProduct v-if="showAddProductModal" @toggleAddProduct="toggleAddProduct" @refreshProducts="refreshProducts"/>
   <ModalUpdateProduct v-if="showUpdateProductModal" @toggleAddProduct="toggleUpdateProduct" @refreshProducts="refreshProducts" :product="ProductToEdit"/>
   <SingleProduct v-if="showSingleProduct" @toggleLogin="toggleLogin" @toggleViewProduct="toggleViewProduct" :product="singleProduct"/>
+  <ConfirmAction id="confirmCheckout" v-if="toggleConfirmAction" :action="action" :actionSuccess="actionSuccess" @cancelAction="closeActionCheckout" @confirmAction="clearCart" :successful="actionIsSuccessful" :loading="loading"/>
 </template>
 
 <script>
@@ -43,11 +44,15 @@ export default {
       showAddProductModal: false,
       showUpdateProductModal: false,
       showSingleProduct: false,
+      toggleConfirmAction: false,
       products: '',
       cart: '',
       loading: false,
       ProductToEdit: '',
-      singleProduct: ''
+      singleProduct: '',
+      action: '',
+      actionSuccess: '',
+      actionIsSuccessful: false
     }
   },
   computed: {
@@ -67,6 +72,10 @@ export default {
     toggleSignUp(){
       this.showSignUpModal = !this.showSignUpModal
     },
+    signUpRedirect(){
+      this.showSignUpModal = true
+      this.showLoginModal = false
+    },
     toggleAddProduct(){
       this.showAddProductModal = !this.showAddProductModal
     },
@@ -79,6 +88,41 @@ export default {
     viewProduct(product){
       this.singleProduct = product
       this.showSingleProduct = !this.showSingleProduct
+    },
+    closeActionCheckout(){
+      this.toggleConfirmAction = false
+      location.reload()
+    },
+    confirmClearCart(action, actionSuccess){
+      this.action = action
+      this.actionSuccess = actionSuccess
+      this.actionIsSuccessful = false
+      this.toggleConfirmAction = !this.toggleConfirmAction
+    },
+    clearCart(){
+      this.message = "";
+      this.actionIsSuccessful = false
+      this.loading = true;
+      CartService.delete().then(
+        (response) => {
+          this.message = response.message;
+          this.loading = false;
+          const user = JSON.parse(localStorage.getItem("user"));
+          user.accessToken = response.data.accessToken
+          localStorage.setItem('user', JSON.stringify(user));
+          this.refreshCart()
+          this.actionIsSuccessful = true
+        },
+        (error) => {
+          this.message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+          this.loading = false;
+        }
+      );
     },
     refreshProducts(){
       this.loading = false;

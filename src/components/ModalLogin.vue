@@ -17,7 +17,7 @@
             <span v-show="!loading">Login</span>
           </button>
         </div>
-        <!-- <a :to="{ name: 'SignUp' }" id="signup">Don't have account yet?</a> -->
+        <button @click="signUpRedirect" id="signup">Don't have account yet?</button>
         <div class="form-group">
           <div v-if="message" class="alert alert-danger" role="alert">
             {{ message }}
@@ -67,6 +67,9 @@ export default {
   methods: {
     toggleLogin(){
         this.$emit('toggleLogin')
+    },
+    signUpRedirect(){
+        this.$emit('signUpRedirect')
     },
     handleLogin(user) {
       this.loading = true;

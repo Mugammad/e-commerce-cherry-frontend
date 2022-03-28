@@ -25,7 +25,7 @@
       <div class="productsHeader checkoutHeader">
           <span class="checkoutRow total"><p><b>Total:</b></p><span>R {{ totalPrice }}</span></span>
       </div>
-      <button @click="clearCart" id="addProductBtn" :disabled="loading">
+      <button @click="confirmClearCart" id="addProductBtn" :disabled="cartEmpty">
         <pulse-loader :loading="loading" color="#826251" size="0.5rem"></pulse-loader>
         <span v-show="!loading">Checkout</span>
       </button>
@@ -43,6 +43,7 @@ export default {
       totalPrice: 0,
       loading: false,
       message: '',
+      cartEmpty: false
     }
   },
   props: [
@@ -69,6 +70,16 @@ export default {
         });
       }
       return this.totalPrice
+    },
+    cartEmpty(){
+      if(this.cart){
+        if(!this.cart[0]){
+          this.cartEmpty = true
+        }else{
+          this.cartEmpty = false
+        }
+        return this.cartEmpty
+      }
     }
   },
   created() {
@@ -78,29 +89,10 @@ export default {
     }
   },
   methods: {
-    clearCart(){
-      this.message = "";
-      this.loading = true;
-      CartService.delete().then(
-        (response) => {
-          this.message = response.message;
-          this.loading = false;
-          const user = JSON.parse(localStorage.getItem("user"));
-          user.accessToken = response.data.accessToken
-          localStorage.setItem('user', JSON.stringify(user));
-          this.$emit('refreshCart')
-          location.reload()
-        },
-        (error) => {
-          this.message =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-          this.loading = false;
-        }
-      );
+    confirmClearCart(){
+      let action = `Do you want to proceed with this purchase? The total is R${this.totalPrice}`
+      let actionSuccess = 'Purchase Successful!'
+      this.$emit('confirmClearCart', action, actionSuccess)
     },
     removeProduct(productId){
         this.message = "";
