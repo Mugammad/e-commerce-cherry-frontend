@@ -9,9 +9,12 @@
 
         </div>
       </div>
-      <CartCard v-for="item in cart" :key="item.id" :cartItem="item" />
+      <CartCard v-for="item in cart" :key="item.id" :cartItem="item" @removeProduct="removeProduct"/>
       <div v-if="cart">
         <div v-if="!cart[0]" class="emptyMessage"><h1>Your cart is empty :(</h1></div>
+      </div>
+      <div v-if="loading" class="loaderCart">
+          <pulse-loader :loading="loading" color="#826251" size="0.5rem"></pulse-loader>
       </div>
     </div>
     <div class="checkout">
@@ -98,18 +101,53 @@ export default {
           this.loading = false;
         }
       );
+    },
+    removeProduct(productId){
+        this.message = "";
+        this.loading = true;
+        CartService.removeCartItem(productId).then(
+            (response) => {
+            this.message = response.message;
+            this.loading = false;
+            const user = JSON.parse(localStorage.getItem("user"));
+            user.accessToken = response.data.accessToken
+            localStorage.setItem('user', JSON.stringify(user));
+            this.$emit('refreshCart')
+            location.reload()
+            },
+            (error) => {
+            this.message =
+                (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+                error.message ||
+                error.toString();
+            this.loading = false;
+            }
+        );
     }
   },
 }
 </script>
 
 <style>
+  .loaderCart{
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.418);
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .emptyMessage{
     padding: 5rem 0;
     opacity: 0.6;
   }
   .cart{
     width: 100%;
+    position: relative;
   }
   .checkout #addProductBtn{
     height: fit-content;
