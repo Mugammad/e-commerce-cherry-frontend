@@ -1,7 +1,9 @@
 <template>
   <div id="home" class="mainSection">
     <div id="hero" class="section">
-      <div class="imagePlaceholder"></div>
+      <div class="imagePlaceholder">
+        <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=876&q=80" alt="">
+      </div>
       <div class="heroBtns">
         <router-link class="herobtn" to="/products"><h3>TOPS</h3></router-link>
         <router-link class="herobtn" to="/bottoms"><h3>BOTTOMS</h3></router-link>
@@ -94,6 +96,12 @@ export default {
 </script>
 
 <style>
+  .imagePlaceholder img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(90%);
+  }
   .loader{
     position: fixed;
     width: 100%;
