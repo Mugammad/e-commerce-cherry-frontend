@@ -16,16 +16,16 @@
     </div>
     <div v-if="products" id="newStock" class="section">
       <div class="newProducts">
-        <div @click="viewProduct(products[products.length-1])" class="newStockimg1" :style="`background-image: url('${products[products.length-1].img}');`">
+        <div @click="viewProduct(products[products.length-1])" class="newStockimg1" id="newStockimg" :style="`background-image: url('${products[products.length-1].img}');`">
           <div class="hoverInfo"><h1>{{products[products.length-1].title}}</h1></div>
         </div>
-        <div @click="viewProduct(products[products.length-2])" class="newStockimg2" :style="`background-image: url('${products[products.length-2].img}');`">
+        <div @click="viewProduct(products[products.length-2])" class="newStockimg2" id="newStockimg" :style="`background-image: url('${products[products.length-2].img}');`">
           <div class="hoverInfo"><h1>{{products[products.length-2].title}}</h1></div>
         </div>
-        <div @click="viewProduct(products[products.length-3])" class="newStockimg3" :style="`background-image: url('${products[products.length-3].img}');`">
+        <div @click="viewProduct(products[products.length-3])" class="newStockimg3" id="newStockimg" :style="`background-image: url('${products[products.length-3].img}');`">
           <div class="hoverInfo"><h1>{{products[products.length-3].title}}</h1></div>
         </div>
-        <div @click="viewProduct(products[products.length-4])" class="newStockimg4" :style="`background-image: url('${products[products.length-4].img}');`">
+        <div @click="viewProduct(products[products.length-4])" class="newStockimg4" id="newStockimg" :style="`background-image: url('${products[products.length-4].img}');`">
           <div class="hoverInfo"><h1>{{products[products.length-4].title}}</h1></div>
         </div>
       </div>
@@ -230,5 +230,71 @@ export default {
     grid-column: 2/span 1;
     grid-row: 2/span 1;
     background: blue;
+  }
+  @media screen and (max-width: 950px){
+    .newProducts{
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 5fr);
+    grid-template-rows: repeat(3, 5fr);
+    width: 100%;
+    height: 600px;
+  }
+      .newStockimg1{
+        grid-column: 1/span 1;
+        grid-row: 1/span 2;
+        background: yellowgreen;
+      }
+  .newStockimg4{
+    grid-column: 2/span 1;
+    grid-row: 2/span 2;
+    background: yellowgreen;
+  }
+  .newStockimg2{
+    grid-column: 2/span 1;
+    grid-row: 1/span 1;
+    background: blueviolet;
+  }
+  .newStockimg3{
+    grid-column: 1/span 1;
+    grid-row: 3/span 1;
+    background: blue;
+  }
+  .saleItems{
+    gap: 4%;
+  }
+  .saleItem{
+    width: 48%;
+    margin-bottom: 4%;
+  }
+  }
+  @media screen and (max-width: 545px){
+    .newProducts{
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+    gap: 2rem;
+  }
+  #newStockimg{
+    width: 100%;
+    height: 300px;
+  }
+  .saleItems{
+    gap: 4%;
+  }
+  .saleItem{
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  }
+
+  @media screen and (max-width: 720px){
+  .heroBtns{
+    display: none;
+  }
+  .imagePlaceholder{
+    height: 200px;
+  }
   }
 </style>

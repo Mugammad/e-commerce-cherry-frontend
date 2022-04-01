@@ -132,6 +132,8 @@ export default {
         padding: 2rem;
         text-align: left;
     }
+    
+    
     .singleProductInfo *{
         padding: 0;
         margin: 0;
@@ -143,5 +145,22 @@ export default {
     }
     .productTitle{
         margin-bottom: 2rem;
+    }
+
+    @media screen and (max-width: 860px) {
+        .inside{
+            flex-wrap: wrap;
+        }
+        .inside img{
+            width: 100%;
+        }
+        .singleProductInfo{
+        width: 100%;
+        margin-top: 5%;
+        }
+    }
+
+    .background{
+        z-index: 102;
     }
 </style>

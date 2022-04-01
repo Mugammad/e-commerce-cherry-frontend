@@ -244,12 +244,24 @@ export default {
   .fade3-leave-active {
     transition: opacity 0.3s;
   }
-  .fade3-enter{
+  .fade3-enter-from{
     opacity: 0;
   }
   .fade3-leave-to{
     opacity: 0;
   }
+
+  .slideIn-enter-active,
+  .slideIn-leave-active {
+    transition: transform 0.3s;
+  }
+  .slideIn-enter-from{
+    transform: translateX(-100%);
+  }
+  .slideIn-leave-to{
+    transform: translateX(-100%);
+  }
+
   .imgPreview{
     width: 200px;
     height: 300px;

@@ -80,4 +80,10 @@ export default {
     height: 45px;
     border-bottom: 3px solid var(--brown);
   }
+
+  @media screen and (max-width: 860px){
+    .products{
+      justify-content: center;
+    }
+  }
 </style>

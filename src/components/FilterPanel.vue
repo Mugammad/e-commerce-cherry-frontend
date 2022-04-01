@@ -55,4 +55,13 @@ export default {
         width: 100%;
         transition: 0.5s;
     }
+
+    @media screen and (max-width: 860px){
+        .filterPanel{
+            width: 100%;
+            margin: 0;
+            margin-bottom: 2rem;
+            height: fit-content;
+        }
+    }
 </style>

@@ -146,4 +146,19 @@ export default {
     font-style: italic;
 }
 
+@media screen and (max-width: 860px) {
+    .adminCard{
+        flex-direction: column;
+    }
+    .cardbtns{
+        height: 20px;
+    }
+    .cardImg{
+        max-width: 500px;
+        height: 400px;
+        width: 100%;
+        margin: 0 auto;
+        margin-bottom: 2rem;
+    }
+}
 </style>

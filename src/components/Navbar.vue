@@ -1,12 +1,12 @@
 <template>
   <div id="nav">
     <div class="navStart">
-      <router-link v-if="!this.isAdmin" class="navLink" to="/">Shop</router-link>
-      <router-link v-if="this.isAdmin" class="navLink" to="/admin">Admin Board</router-link>
+      <router-link @click="this.$emit('toggleNav')" v-if="!this.isAdmin" class="navLink" to="/">Home</router-link>
+      <router-link @click="this.$emit('toggleNav')" v-if="this.isAdmin" class="navLink" to="/admin">Admin Board</router-link>
     </div>
     <div class="navEnd">
         <div class="navEndBtns">
-            <router-link class="navLink" to="/cart">Cart <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M96 0C107.5 0 117.4 8.19 119.6 19.51L121.1 32H541.8C562.1 32 578.3 52.25 572.6 72.66L518.6 264.7C514.7 278.5 502.1 288 487.8 288H170.7L179.9 336H488C501.3 336 512 346.7 512 360C512 373.3 501.3 384 488 384H159.1C148.5 384 138.6 375.8 136.4 364.5L76.14 48H24C10.75 48 0 37.25 0 24C0 10.75 10.75 0 24 0H96zM128 464C128 437.5 149.5 416 176 416C202.5 416 224 437.5 224 464C224 490.5 202.5 512 176 512C149.5 512 128 490.5 128 464zM512 464C512 490.5 490.5 512 464 512C437.5 512 416 490.5 416 464C416 437.5 437.5 416 464 416C490.5 416 512 437.5 512 464z"/></svg><span v-if="cartQty" id="cartQty">{{cartQty}}</span></router-link>
+            <router-link @click="this.$emit('toggleNav')" class="navLink" to="/cart">Cart <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M96 0C107.5 0 117.4 8.19 119.6 19.51L121.1 32H541.8C562.1 32 578.3 52.25 572.6 72.66L518.6 264.7C514.7 278.5 502.1 288 487.8 288H170.7L179.9 336H488C501.3 336 512 346.7 512 360C512 373.3 501.3 384 488 384H159.1C148.5 384 138.6 375.8 136.4 364.5L76.14 48H24C10.75 48 0 37.25 0 24C0 10.75 10.75 0 24 0H96zM128 464C128 437.5 149.5 416 176 416C202.5 416 224 437.5 224 464C224 490.5 202.5 512 176 512C149.5 512 128 490.5 128 464zM512 464C512 490.5 490.5 512 464 512C437.5 512 416 490.5 416 464C416 437.5 437.5 416 464 416C490.5 416 512 437.5 512 464z"/></svg><span v-if="cartQty" id="cartQty">{{cartQty}}</span></router-link>
             <button v-if="!this.currentUser" @click="toggleLogin()"><h3>Login</h3></button>
             <button v-if="!this.currentUser" @click="toggleSignUp()"><h3>Sign up</h3></button>
         </div>
@@ -58,6 +58,56 @@ export default {
 </script>
 
 <style>
+    @media screen and (min-width: 860px){
+      .navEnd, .navStart{
+        display: flex;
+        flex-wrap: wrap;
+        height: 100%;
+      }
+      .navEnd *, .navStart *{
+        display: flex;
+        align-items: center;
+      }
+      .dropdown{
+        height: 100%;
+        margin-left: 10px;
+      }
+      .dropdown ul{
+        position: absolute;
+        background: var(--pink);
+        padding: 15px;
+        padding-top: 0;
+        top: 54px;
+        display: none;
+      }
+
+      .dropdown:hover > ul {
+        display: block;
+      }
+
+      .dropdown ul li a, .dropdown ul li{
+        padding: 0;
+        padding-top: 0.25rem;
+      }
+      .dropdown ul li:first-of-type{
+        border-top: 1px solid var(--brown);
+      }
+      .dropdown ul li:hover{
+        opacity: 1;
+      }
+      #nav{
+        height: 54px;
+        background: aliceblue;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      #nav {
+        padding: 0 10%;
+        background: var(--pink);
+      }
+
+    }
     .navEndBtns *:hover{
       color: var(--brown);
       transition: 0.3s;
@@ -79,15 +129,6 @@ export default {
       border-radius: 10px;
       margin-left: 0.5rem;
     }
-    .navEnd, .navStart{
-        display: flex;
-        flex-wrap: wrap;
-        height: 100%;
-    }
-    .navEnd *, .navStart *{
-        display: flex;
-        align-items: center;
-    }
     button{
         border: none;
         background: none;
@@ -97,23 +138,10 @@ export default {
         width: fit-content;
     }
 
-    #nav{
-        height: 54px;
-        background: aliceblue;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
     .navLink, button{
         padding: 0 10px;
         height: 100%;
         flex-shrink: 0;
-    }
-
-    #nav {
-      padding: 0 10%;
-      background: var(--pink);
     }
 
     #nav a, #nav2 a {
@@ -127,43 +155,32 @@ export default {
       background: white;
       
     }
-    .dropdown{
-        height: 100%;
-        margin-left: 10px;
-    }
-    .dropdown ul{
-        position: absolute;
-        background: var(--pink);
-        padding: 15px;
-        padding-top: 0;
-        top: 54px;
-        display: none;
-    }
-
-    .dropdown:hover > ul {
-        display: block;
-    }
 
     .dropdown ul li{
         text-decoration: none;
         list-style-type: none;
         cursor: pointer;
         opacity: 0.6;
-    }
-    .dropdown ul li a, .dropdown ul li{
-      padding: 0;
-      padding-top: 0.25rem;
-    }
-    .dropdown ul li:first-of-type{
-      border-top: 1px solid var(--brown);
-    }
-    .dropdown ul li:hover{
-        opacity: 1;
-    }
+      }
+    
     .dropdown a svg{
       fill: var(--brown);
       width: 15px;
       height: 15px;
     }
-
+    @media screen and (max-width: 860px){
+      .navStart, .navEnd{
+        text-align: start;
+        padding-top: 1rem
+      }
+      .navEndBtns button{
+        padding-top: 1rem;
+      }
+      .navName{
+        display: none;
+      }
+      .notMobile{
+        display: none;
+      }
+    }
 </style>

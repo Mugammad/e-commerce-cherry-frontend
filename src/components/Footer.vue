@@ -1,7 +1,7 @@
 <template>
   <div id="footer">
       <div class="footerHeader">
-          <h1>STORE NAME</h1>
+          <h1 id="storeLogo">Cherry Blossom Couture</h1>
       </div>
       <div class="footerInfo">
           <ul class="footerLinks" id="accountLinks">
@@ -30,6 +30,9 @@ export default {
     .footerHeader{
         padding-bottom: 3rem;
         width: 100%;
+    }
+    .footerHeader #storeLogo{
+        color: white;
     }
     .footerInfo{
         display: flex;

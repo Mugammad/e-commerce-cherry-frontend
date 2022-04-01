@@ -190,4 +190,17 @@ export default {
     display: flex;
     padding-top: 5rem;
   }
+
+  @media screen and (max-width: 860px) {
+    .checkout{
+      width: 100%;
+      margin: 0;
+      margin-top: 2rem;
+      margin-bottom: 5rem;
+    }
+    #cartSection{
+      flex-direction: column;
+      padding-top: 5rem;
+    }
+  }
 </style>

@@ -1,21 +1,21 @@
 <template>
   <div v-if="!this.isAdmin" id="nav2">
     <div class="navStart">
-        <h1 id="storeLogo">Cherry Blossom Couture</h1>
+        <h1 class="navName" id="storeLogo">Cherry Blossom Couture</h1>
     </div>
     <div class="navMiddle">
         <ul>
             <li>
-                <router-link class="navLink category filterLink" to="/products"><span class="borderLinkTop"></span>TOPS<span class="borderLink"></span></router-link>
+                <router-link @click="this.$emit('toggleNav')" class="navLink category filterLink" to="/products"><span class="borderLinkTop"></span>TOPS<span class="borderLink"></span></router-link>
             </li>
             <li>
-                <router-link class="navLink category filterLink" to="/bottoms"><span class="borderLinkTop"></span>BOTTOMS<span class="borderLink"></span></router-link>
+                <router-link @click="this.$emit('toggleNav')" class="navLink category filterLink" to="/bottoms"><span class="borderLinkTop"></span>BOTTOMS<span class="borderLink"></span></router-link>
             </li>
             <li>
-                <router-link class="navLink category filterLink" to="/dresses"><span class="borderLinkTop"></span>DRESSES<span class="borderLink"></span></router-link>
+                <router-link @click="this.$emit('toggleNav')" class="navLink category filterLink" to="/dresses"><span class="borderLinkTop"></span>DRESSES<span class="borderLink"></span></router-link>
             </li>
             <li>
-                <router-link class="navLink category filterLink" to="/headwear"><span class="borderLinkTop"></span>HEADWEAR<span class="borderLink"></span></router-link>
+                <router-link @click="this.$emit('toggleNav')" class="navLink category filterLink" to="/headwear"><span class="borderLinkTop"></span>HEADWEAR<span class="borderLink"></span></router-link>
             </li>
         </ul>
     </div>
@@ -40,6 +40,7 @@ export default {
 </script>
 
 <style>
+@media screen and (min-width: 860px){
     .navMiddle ul{
         height: 50%;
     }
@@ -72,6 +73,13 @@ export default {
         display: flex;
         align-items: center;
     }
+}
+
+.navMiddle ul li{
+        list-style-type: none;
+        font-size: 15px;
+    }
+    
     #storeLogo{
         font-family: 'Hurricane', cursive;
         font-size: 2.5rem;
